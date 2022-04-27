@@ -32,22 +32,23 @@
 
 ```
 .
+├── go.mod
+├── go.sum
+├── internal
+│   └── path.go
+├── main.go
 ├── README.md
+├── vendor
 └── server
-    ├── go.mod
-    ├── go.sum
     ├── handlers.go
-    ├── internal
-    │   └── path.go
-    ├── main.go
     ├── response.go
     ├── server.go
-    ├── vendor
     ├── view
     │   └── test.html
     ├── ws_client.go
     ├── ws_hub.go
     └── ws_room.go
+
 ```
 
 ## Entities

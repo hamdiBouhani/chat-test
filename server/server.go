@@ -1,10 +1,10 @@
-package main
+package server
 
 import (
+	"chat-test/internal"
 	"flag"
 	"fmt"
 	"path/filepath"
-	"server/internal"
 
 	"time"
 
