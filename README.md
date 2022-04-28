@@ -64,3 +64,6 @@
  ### Client:
 
  simple websocket  connection.
+
+
+ [Test WebSocket Servers](https://www.piesocket.com/websocket-tester)
