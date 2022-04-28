@@ -60,7 +60,7 @@ the Hub entity manage set of chat room life cycle:
  * register  set of chat rooms.
  * unregister  any  closed room.
 
- ```
+ ```go
  type Hub struct {
 	// Registered clients.
 	rooms map[*Room]bool //check this bool!!
@@ -76,7 +76,7 @@ the Hub entity manage set of chat room life cycle:
  ### Room :
  the Room entity manage  set of the web socket connections (web socket clients).
  
- ```
+ ```go
  // Room is a middleman between the Client and the hub.
 type Room struct {
 	ID uuid.UUID
@@ -104,7 +104,7 @@ type Room struct {
 
  simple websocket  connection.
 
- ```
+ ```go
  // Client is a middleman between the websocket connection and the hub.
 type Client struct {
 	ID uuid.UUID
@@ -132,7 +132,7 @@ type Client struct {
 
  > to test the chat-server we are using    javascript web socket client:
 
- ```code
+ ```javascript
         
         function connect() {
             
@@ -178,7 +178,23 @@ type Client struct {
  ``` 
 ****
 
+to test this project:
+
+in project repository run 
+```console
+go mod tidy
+go mod vendor
+go run main.go
+```
+
+set the `room` name  and  user name and email than click on connect
+> for  two or more user  coonect with each other you should connect with same room name.
+
 ![Test, WebSocket!](./test-web-socket.png)
+
+****
+
+`user` :  user1 & user2 talk with each other in the room `room1`
 
 ![Test, WebSocket example](./test-screenshot.png)
 
