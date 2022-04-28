@@ -44,7 +44,7 @@
     ├── response.go
     ├── server.go
     ├── view
-    │   └── test.html
+    │   └── chat_client.html  //chat client implementation `javaScript` web Socket.
     ├── ws_client.go
     ├── ws_hub.go
     └── ws_room.go
