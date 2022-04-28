@@ -31,9 +31,9 @@ func (svc *HttpService) getChatServer(c *gin.Context) {
 		return
 	}
 
-	room := svc.hub.getRoomByEmailAndRoomID(userEmail, roomID)
+	room := svc.hub.getRoomByRoomID(roomID)
 	if room == nil {
-		room = newRoom(svc.hub, userEmail, roomID)
+		room = newRoom(svc.hub, roomID)
 		room.hub.register <- room
 		// run room
 		go room.run()
@@ -48,7 +48,7 @@ func (svc *HttpService) getChatServer(c *gin.Context) {
 		return
 	}
 
-	client := &Client{ID: uuid.New(), room: room, conn: conn, send: make(chan string)}
+	client := &Client{ID: uuid.New(), userEmail: userEmail, room: room, conn: conn, send: make(chan string)}
 	client.room.register <- client
 
 	// Allow collection of memory referenced by the caller by doing all work in

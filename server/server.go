@@ -87,7 +87,7 @@ func (svc *HttpService) ping(c *gin.Context) {
 }
 
 func (svc *HttpService) wsRoutes() {
-	svc.router.LoadHTMLFiles(filepath.Join(internal.GetProjectPath(), "view", "test.html"))
+	svc.router.LoadHTMLFiles(filepath.Join(internal.GetProjectPath(),"server", "view", "test.html"))
 	svc.ws.GET("/test", func(c *gin.Context) { c.HTML(200, "test.html", nil) })
 	svc.ws.GET("/chat-server", svc.getChatServer)
 }

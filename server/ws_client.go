@@ -25,7 +25,9 @@ const (
 
 // Client is a middleman between the websocket connection and the hub.
 type Client struct {
-	ID uuid.UUID  //
+	ID uuid.UUID
+
+	userEmail string
 
 	room *Room
 

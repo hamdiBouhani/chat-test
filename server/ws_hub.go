@@ -33,9 +33,9 @@ func (h *Hub) run() {
 	}
 }
 
-func (h *Hub) getRoomByEmailAndRoomID(email string, roomID string) *Room {
+func (h *Hub) getRoomByRoomID(roomID string) *Room {
 	for room := range h.rooms {
-		if room.userEmail == email && room.roomID == roomID {
+		if room.roomID == roomID {
 			return room
 		}
 	}
@@ -43,7 +43,7 @@ func (h *Hub) getRoomByEmailAndRoomID(email string, roomID string) *Room {
 }
 
 func (h *Hub) broadcastMessageInRoom(email string, roomID string, msg string) {
-	room := h.getRoomByEmailAndRoomID(email, roomID)
+	room := h.getRoomByRoomID(roomID)
 	if room != nil {
 		room.broadcast <- msg
 	}

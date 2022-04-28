@@ -1,8 +1,25 @@
 package server
 
 import (
+	"fmt"
+
 	"github.com/google/uuid"
 )
+
+type RoomType string
+
+const (
+	RoomType_UNKOWN  RoomType = "UNKOWN"
+	RoomType_DIRECT  RoomType = "DIRECT"
+	RoomType_CHANNEL RoomType = "CHANNEL"
+)
+
+func (r RoomType) IsValid() error {
+	if r != RoomType_CHANNEL && r != RoomType_DIRECT {
+		return fmt.Errorf("room type UNKOWN")
+	}
+	return nil
+}
 
 // Room is a middleman between the Client and the hub.
 type Room struct {
@@ -10,8 +27,9 @@ type Room struct {
 
 	hub *Hub
 
-	userEmail string
-	roomID    string
+	roomID string
+
+	RoomType RoomType
 
 	clients map[*Client]bool
 
@@ -25,10 +43,9 @@ type Room struct {
 	unregister chan *Client
 }
 
-func newRoom(hub *Hub, email string, roomID string) *Room {
+func newRoom(hub *Hub, roomID string) *Room {
 	return &Room{
 		hub:        hub,
-		userEmail:  email,
 		roomID:     roomID,
 		broadcast:  make(chan string),
 		register:   make(chan *Client),
