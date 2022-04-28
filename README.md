@@ -67,3 +67,49 @@
 
 
  [Test WebSocket Servers](https://www.piesocket.com/websocket-tester)
+
+
+ ## Client:
+ > to test chat server we user `javascript client` that connect to the web socket api :
+ ```code
+ function connect() {           
+            var room_id = document.getElementById("room_id").value;
+            var user_email = document.getElementById("user_email").value;
+            var url = "ws://localhost:8080/ws/chat-server?room_id=" + room_id + "&user_email=" + user_email;
+
+            console.log(url);
+
+            socket = new WebSocket(url);
+
+            socket.onopen = function () {
+                output.innerHTML += "<div class=\"row\"> <div class=\"col\"> <p> Connected </p> </div></div>";
+            };
+
+            socket.onmessage = function (e) {
+                output.innerHTML += "<div class=\"row\"> <div class=\"col\">" +
+                    prettifyJson(e.data, true) +
+                    "</div></div>";
+            };
+
+            socket.onclose = () => {
+                console.log('Web Socket Connection Closed');
+            };
+        }
+
+        function disconnect() {
+            if (socket != null) {
+                socket.close();
+            }
+
+        }
+
+        function sendMessage() {
+            if (socket == null) {
+                console.log('Web Socket Connection Closed');
+            }
+            var user_name= document.getElementById("user_name").value;
+            var msg = document.getElementById("msgToServer").value;
+            socket.send(String(user_name)+" : "+msg);
+        }
+
+ ``` 
