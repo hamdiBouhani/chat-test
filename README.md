@@ -70,9 +70,12 @@
 
 
  ## Client:
- > to test chat server we user `javascript client` that connect to the web socket api :
+ > to test the chat-server we are using    javascript web socket client:
+
  ```code
- function connect() {           
+        
+        function connect() {
+            
             var room_id = document.getElementById("room_id").value;
             var user_email = document.getElementById("user_email").value;
             var url = "ws://localhost:8080/ws/chat-server?room_id=" + room_id + "&user_email=" + user_email;
