@@ -56,20 +56,80 @@
 > This section will describe the entities of `CHAT-TEST` service
 
 ### Hub :
- register  set of chat rooms
+the Hub entity manage set of chat room life cycle:
+ * register  set of chat rooms.
+ * unregister  any  closed room.
+
+ ```
+ type Hub struct {
+	// Registered clients.
+	rooms map[*Room]bool //check this bool!!
+
+	// Register requests from the Rooms.
+	register chan *Room
+
+	// Unregister requests from Rooms.
+	unregister chan *Room
+}
+ ```
 
  ### Room :
- register  set of the connected clients.
+ the Room entity manage  set of the web socket connections (web socket clients).
+ 
+ ```
+ // Room is a middleman between the Client and the hub.
+type Room struct {
+	ID uuid.UUID
+
+	hub *Hub
+
+	roomID string
+
+	RoomType RoomType
+
+	clients map[*Client]bool
+
+	// Inbound messages from the clients.
+	broadcast chan string
+
+	// Register requests from the clients.
+	register chan *Client
+
+	// Unregister requests from clients.
+	unregister chan *Client
+}
+ ```
 
  ### Client:
 
  simple websocket  connection.
 
+ ```
+ // Client is a middleman between the websocket connection and the hub.
+type Client struct {
+	ID uuid.UUID
 
- [Test WebSocket Servers](https://www.piesocket.com/websocket-tester)
+	userEmail string
+
+	room *Room
+
+	// The websocket connection.
+	conn *websocket.Conn
+
+	// Buffered channel of outbound messages.
+	send chan string
+}
+
+ ```
 
 
- ## Client:
+
+
+ ## JavaScript Client:
+
+ >`Client`: A process reading a string on `STDIN` and forwarding it to the server, and also receiving messages from the same server and writing them to `STDOUT`.
+
+
  > to test the chat-server we are using    javascript web socket client:
 
  ```code
@@ -116,3 +176,10 @@
         }
 
  ``` 
+
+
+****
+
+ Also you can use this link to test server:
+
+  [Test WebSocket Servers](https://www.piesocket.com/websocket-tester)
