@@ -176,6 +176,11 @@ type Client struct {
         }
 
  ``` 
+****
+
+![Test, WebSocket!](./test-web-socket.png)
+
+![Test, WebSocket example](./test-screenshot.png)
 
 
 ****
