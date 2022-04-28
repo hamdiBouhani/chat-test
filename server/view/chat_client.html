@@ -77,6 +77,10 @@
     <div class="container-sm">
         <div class="input-group">
             <div class="item">
+                <input id="user_name" placeholder="User Name" type="text" class="form-control" name="name">
+            </div>
+
+            <div class="item">
                 <input id="room_id" type="text" placeholder="Room ID" class="form-control" name="roomID"
                     autocomplete="on">
             </div>
@@ -111,7 +115,7 @@
 
         var socket = null;
 
-        function connect() {
+        function connect() {           
             var room_id = document.getElementById("room_id").value;
             var user_email = document.getElementById("user_email").value;
             var url = "ws://localhost:8080/ws/chat-server?room_id=" + room_id + "&user_email=" + user_email;
@@ -146,9 +150,9 @@
             if (socket == null) {
                 console.log('Web Socket Connection Closed');
             }
-
+            var user_name= document.getElementById("user_name").value;
             var msg = document.getElementById("msgToServer").value;
-            socket.send(msg);
+            socket.send(String(user_name)+" : "+msg);
         }
 
         function prettifyJson(json, prettify) {
